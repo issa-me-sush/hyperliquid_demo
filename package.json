@@ -1,0 +1,26 @@
+{
+  "name": "hyperliquid-agent",
+  "version": "1.0.0",
+  "description": "Standalone OpenServ agent for Hyperliquid leverage trading",
+  "type": "module",
+  "main": "agent-server.ts",
+  "scripts": {
+    "start": "tsx agent-server.ts",
+    "dev": "tsx watch agent-server.ts"
+  },
+  "keywords": ["openserv", "agent", "hyperliquid", "leverage", "trading"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openserv-labs/sdk": "latest",
+    "@nktkas/hyperliquid": "latest",
+    "dotenv": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
+
