@@ -52,6 +52,59 @@ npm start
 
 The agent will start on port **7380** (or the port you specify in `.env`).
 
+## Expose Locally with ngrok
+
+If you want to receive webhooks or access your local agent from the internet, you can expose it securely using ngrok.
+
+1. Install ngrok
+   - macOS (Homebrew):
+
+```bash
+brew install ngrok/ngrok/ngrok
+```
+
+   - Or download from the ngrok website: [ngrok](https://ngrok.com/)
+
+2. (Recommended) Authenticate with your ngrok authtoken so you get stable, higher‑limit tunnels:
+
+```bash
+ngrok config add-authtoken <your_ngrok_authtoken>
+```
+
+3. Start a tunnel to the agent's port:
+
+```bash
+# If you set a custom PORT in .env
+ngrok http $PORT
+
+# Otherwise (default 7380)
+ngrok http 7380
+```
+
+4. Copy the public URL shown by ngrok (e.g., `https://<id>.ngrok-free.app`) and use it to call your endpoints:
+
+```bash
+# Test capability
+curl -X POST https://<id>.ngrok-free.app/tools/test \
+  -H 'Content-Type: application/json' \
+  -d '{"args": {"message": "Hello Hyperliquid"}}'
+
+# Trade capability (example)
+curl -X POST https://<id>.ngrok-free.app/tools/trade \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "args": {
+      "coin": "BTC",
+      "side": "buy",
+      "size": "0.01",
+      "leverage": "5",
+      "pk_name": "hl_key1"
+    }
+  }'
+```
+
+Keep the ngrok process running while you need the public URL. For production-grade exposure, add authentication in front of the agent or deploy behind a secure gateway.
+
 ## Capabilities
 
 ### `trade`
